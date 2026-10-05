@@ -1,0 +1,110 @@
+[
+ {
+  "id": "s01_lich_thi",
+  "title": "Lịch thi cuối kỳ (Phòng Đào tạo)",
+  "truth": "legit",
+  "attack": "legit",
+  "lesson": "Email thật: gửi từ tên miền của trường, xác thực SPF/DKIM/DMARC đạt, liên kết trỏ đúng dhdemo.edu.vn, tệp PDF không chứa mã.",
+  "subject": "Lịch thi cuối kỳ học kỳ 1",
+  "sender": "Phòng Đào tạo <daotao@dhdemo.edu.vn>"
+ },
+ {
+  "id": "s02_khoa_tai_khoan",
+  "title": "Tài khoản email sẽ bị khóa",
+  "truth": "phishing",
+  "attack": "credential_harvest",
+  "lesson": "Tên miền dhdemo-edu.com giả dạng dhdemo.edu.vn; chữ hiển thị là link của trường nhưng thực tế dẫn tới .top; đe dọa khóa tài khoản + hạn 24 giờ.",
+  "subject": "[KHẨN] Tài khoản email sinh viên sẽ bị khóa",
+  "sender": "Phòng CNTT <it-support@dhdemo-edu.com>"
+ },
+ {
+  "id": "s03_hoc_bong_llm",
+  "title": "Học bổng - email viết trau chuốt (kiểu LLM)",
+  "truth": "phishing",
+  "attack": "scam",
+  "lesson": "Không có từ ngữ 'khẩn cấp' nhưng: gửi từ Gmail dưới tên Phòng CTSV, Reply-To sang Outlook, link rút gọn, xin số tài khoản + CCCD. Đây là kiểu email LLM viết lại để qua mặt bộ lọc từ khóa.",
+  "subject": "Xác nhận thông tin nhận học bổng Khuyến khích học tập HK1",
+  "sender": "Phòng Công tác Sinh viên <phongctsv.dhdemo@gmail.com>"
+ },
+ {
+  "id": "s04_qr_m365",
+  "title": "Email chỉ có ảnh + mã QR",
+  "truth": "phishing",
+  "attack": "quishing",
+  "lesson": "Thông điệp nằm trong ảnh (né bộ lọc văn bản) và liên kết nằm trong mã QR (né bộ lọc URL, bị quét bằng điện thoại cá nhân).",
+  "subject": "Thông báo bảo mật tài khoản",
+  "sender": "Microsoft 365 Security <no-reply@micros0ft-365.xyz>"
+ },
+ {
+  "id": "s05_bien_lai_html",
+  "title": "Biên lai học phí (tệp HTML)",
+  "truth": "phishing",
+  "attack": "credential_harvest",
+  "lesson": "Tệp .html là một trang đăng nhập giả chạy ngay trên máy bạn, gửi mật khẩu tới máy chủ lạ; tên miền người gửi chỉ 'bắt đầu bằng' dhdemo.edu.vn.",
+  "subject": "Biên lai học phí học kỳ 1",
+  "sender": "Phòng Kế hoạch Tài chính <ketoan@dhdemo.edu.vn.billing-notice.top>"
+ },
+ {
+  "id": "s06_macro_docm",
+  "title": "Danh sách cảnh cáo (tệp Word có macro)",
+  "truth": "phishing",
+  "attack": "malware",
+  "lesson": "Tài liệu .docm chứa macro và yêu cầu 'Enable Content' - cách phổ biến nhất để chạy mã độc qua tài liệu Office.",
+  "subject": "Danh sách sinh viên bị cảnh cáo học vụ",
+  "sender": "Văn phòng Khoa CNTT <vpk.cntt.dhdemo@yahoo.com>"
+ },
+ {
+  "id": "s07_zip_exe",
+  "title": "Hóa đơn điện tử (zip có mật khẩu)",
+  "truth": "phishing",
+  "attack": "malware",
+  "lesson": "Tệp nén có mật khẩu để phần mềm diệt virus không quét được; bên trong là tệp .pdf.exe đuôi kép.",
+  "subject": "Hóa đơn điện tử tháng 10",
+  "sender": "Hóa đơn điện tử <hoadon@einvoice-vn.top>"
+ },
+ {
+  "id": "s08_the_cao",
+  "title": "Thầy nhờ mua thẻ cào",
+  "truth": "phishing",
+  "attack": "payment_fraud",
+  "lesson": "Không có liên kết hay tệp - bộ lọc kỹ thuật bỏ qua. Dấu hiệu nằm ở nội dung: mạo danh người có thẩm quyền, gấp, giữ bí mật, đòi mã thẻ cào, gửi từ Gmail.",
+  "subject": "Nhờ em việc gấp",
+  "sender": "\"PGS.TS Nguyễn Văn An - Trưởng khoa\" <nguyenvanan.khoacntt@gmail.com>"
+ },
+ {
+  "id": "s09_su_kien_clb",
+  "title": "Workshop CLB Tin học (poster + QR)",
+  "truth": "legit",
+  "attack": "legit",
+  "lesson": "Email thật có ảnh và QR: QR dẫn về đúng tên miền của trường, người gửi xác thực đạt.",
+  "subject": "Mời tham gia workshop Nhập môn AI",
+  "sender": "CLB Tin học <clbtinhoc@dhdemo.edu.vn>"
+ },
+ {
+  "id": "s10_pdf_js",
+  "title": "Điều chỉnh học phí (giả mạo chính tên miền trường)",
+  "truth": "phishing",
+  "attack": "malware",
+  "lesson": "Địa chỉ người gửi trông đúng là của trường nhưng SPF/DMARC thất bại (bị giả mạo); PDF tự chạy JavaScript khi mở và chứa link tới tên miền lạ.",
+  "subject": "Thông báo điều chỉnh học phí",
+  "sender": "Phòng Đào tạo <daotao@dhdemo.edu.vn>"
+ },
+ {
+  "id": "s11_en_m365",
+  "title": "Microsoft 365 password expires (English)",
+  "truth": "phishing",
+  "attack": "credential_harvest",
+  "lesson": "Giọng văn lịch sự, cá nhân hóa (kiểu LLM). Link hiển thị microsoftonline.com nhưng tên miền thật là secure-auth.xyz.",
+  "subject": "Action required: your Microsoft 365 password expires today",
+  "sender": "IT Service Desk <it-desk@dhdemo-edu.com>"
+ },
+ {
+  "id": "s12_bao_tri",
+  "title": "Bảo trì hệ thống email (có nhắc 'mật khẩu')",
+  "truth": "legit",
+  "attack": "legit",
+  "lesson": "Email thật dù có từ 'mật khẩu': người gửi xác thực, không có liên kết, còn nhắc nhở an toàn.",
+  "subject": "Bảo trì hệ thống email",
+  "sender": "Phòng CNTT <it@dhdemo.edu.vn>"
+ }
+]

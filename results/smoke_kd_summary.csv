@@ -1,0 +1,5 @@
+model,scenario,params,train_s,test_s,acc,precision,recall,f1_weighted
+mobilebert,mixture,24582914.0,351.32,11.83,100.0,100.0,100.0,100.0
+kd_bilstm_mh,mixture,4435202.0,57.88,0.35,100.0,100.0,100.0,100.0
+mobilebert,orig-gen,24582914.0,92.19,7.18,45.77,0.0,0.0,28.74
+kd_bilstm_mh,orig-gen,4435202.0,13.62,0.21,45.77,0.0,0.0,28.74

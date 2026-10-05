@@ -1,0 +1,99 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>
+body{margin:0;font-family:"Noto Sans",Arial,sans-serif;background:#fff;color:#1a1a1a}
+.d{width:1100px;padding:28px;box-sizing:border-box;background:#fff;margin-bottom:40px}
+.row{display:flex;align-items:center;gap:14px}
+.b{border:2px solid #1F497D;border-radius:10px;padding:12px 14px;text-align:center;font-size:17px;background:#fff;line-height:1.35}
+.b small{display:block;font-size:13.5px;color:#555;margin-top:4px}
+.f{background:#E8F0FA}.g{background:#EAF6EE;border-color:#2E7D4F}.o{background:#FFF4E5;border-color:#B26A00}.r{background:#FDECEC;border-color:#B23B3B}
+.a{font-size:26px;color:#1F497D;flex:none}
+.col{display:flex;flex-direction:column;gap:10px}
+h4{margin:0 0 14px;font-size:18px;color:#1F497D;text-align:center}
+.grp{border:2px dashed #8aa3c2;border-radius:12px;padding:14px}
+.lbl{font-size:14px;color:#1F497D;font-weight:700;margin-bottom:8px;text-align:center}
+.va{font-size:24px;color:#1F497D;text-align:center;line-height:1}
+</style></head><body>
+
+<!-- 1: paper pipeline -->
+<div class="d" id="d1"><h4>Quy trình đề xuất của bài báo (Eskandarian et al., 2026)</h4>
+<div class="row">
+ <div class="col" style="width:230px">
+  <div class="b">Dữ liệu thật<small>Cambridge, Nazario, Chakraborty, Phishing Pot, Enron</small></div>
+  <div class="va">+</div>
+  <div class="b o">Email do LLM sinh<small>paraphrase · masking · personalization</small></div>
+ </div>
+ <div class="a">➜</div>
+ <div class="b" style="width:150px">Tiền xử lý<small>lọc, khử trùng lặp, chấm mức phishing</small></div>
+ <div class="a">➜</div>
+ <div class="grp" style="flex:1"><div class="lbl">Các bước nâng cấp mô hình</div>
+  <div class="row" style="gap:8px">
+   <div class="b" style="flex:1">LSTM</div><div class="a" style="font-size:20px">➜</div>
+   <div class="b" style="flex:1">BiLSTM</div><div class="a" style="font-size:20px">➜</div>
+   <div class="b" style="flex:1">+ Single-head</div><div class="a" style="font-size:20px">➜</div>
+   <div class="b" style="flex:1">+ Multi-head</div>
+  </div>
+  <div class="va" style="margin:8px 0">⬇</div>
+  <div class="row" style="gap:10px;justify-content:center">
+   <div class="b f" style="width:230px">Teacher: MobileBERT<small>25,3M tham số, fine-tune rồi đóng băng</small></div>
+   <div class="a">➜</div>
+   <div class="b g" style="width:260px">Student: KD-BiLSTM + MHA<small>~4,5M tham số, chạy CPU</small></div>
+  </div>
+ </div>
+</div></div>
+
+<!-- 2: KD architecture -->
+<div class="d" id="d2"><h4>Chưng cất tri thức từ MobileBERT sang BiLSTM + multi-head attention</h4>
+<div class="row" style="align-items:stretch">
+ <div class="b" style="width:120px;display:flex;flex-direction:column;justify-content:center">Email<small>tokenizer WordPiece (≤ 512 token)</small></div>
+ <div class="a" style="align-self:center">➜</div>
+ <div class="col" style="width:600px">
+  <div class="row"><div class="b f" style="flex:1">Teacher MobileBERT (đóng băng)<small>24 lớp transformer · logit z<sub>T</sub></small></div>
+   <div class="a">➜</div><div class="b f" style="width:150px">softmax(z<sub>T</sub>/τ)</div></div>
+  <div class="row"><div class="b g" style="flex:1">Embedding (khởi tạo từ teacher) ➜ BiLSTM ➜ Multi-head attention ➜ Residual + LayerNorm ➜ Average pooling ➜ Dense (2 logit)<small>Student · logit z<sub>S</sub></small></div>
+   <div class="a">➜</div><div class="b g" style="width:150px">softmax(z<sub>S</sub>/τ)</div></div>
+ </div>
+ <div class="a" style="align-self:center">➜</div>
+ <div class="b r" style="width:200px;display:flex;flex-direction:column;justify-content:center">Hàm mất mát kết hợp<small>α·CE(y, z<sub>S</sub>) + (1−α)·τ²·KL(p<sub>T</sub> ‖ p<sub>S</sub>)<br>α = 0,5 · τ = 2</small></div>
+</div></div>
+
+<!-- 3: PhishLens architecture -->
+<div class="d" id="d3"><h4>Kiến trúc hệ thống PhishLens Edu</h4>
+<div class="row" style="align-items:center">
+ <div class="col" style="width:170px;justify-content:center">
+  <div class="b">Email nghi ngờ<small>tệp .eml, chuyển tiếp hoặc dán nội dung</small></div></div>
+ <div class="a" style="align-self:center">➜</div>
+ <div class="b" style="width:150px;display:flex;flex-direction:column;justify-content:center">Bộ tách email<small>MIME: header, văn bản/HTML, liên kết, ảnh, tệp</small></div>
+ <div class="a" style="align-self:center">➜</div>
+ <div class="grp col" style="width:300px"><div class="lbl">Phân tích đa kênh</div>
+  <div class="b">Người gửi<small>SPF/DKIM/DMARC, mạo danh, tên miền nhái</small></div>
+  <div class="b">Liên kết<small>chữ hiển thị ≠ địa chỉ thật, rút gọn, đuôi lạ</small></div>
+  <div class="b g">Nội dung<small>KD-BiLSTM (bài báo) + dấu hiệu tâm lý</small></div>
+  <div class="b">Ảnh &amp; mã QR<small>OCR tiếng Việt, giải mã QR</small></div>
+  <div class="b">Tệp đính kèm<small>phân tích tĩnh: macro, PDF JS, HTML, ZIP</small></div>
+ </div>
+ <div class="a" style="align-self:center">➜</div>
+ <div class="col" style="flex:1;justify-content:center">
+  <div class="b o">Kết hợp bằng chứng<small>noisy-OR ➜ điểm 0–100, mức độ, loại tấn công</small></div>
+  <div class="va">⬇</div>
+  <div class="b f">Giải thích &amp; giáo dục<small>lý do, bài học, tô sáng, lời khuyên, chế độ luyện tập</small></div>
+ </div>
+</div></div>
+
+<!-- 4: robustness design -->
+<div class="d" id="d4"><h4>Thiết kế thí nghiệm đánh giá độ bền</h4>
+<div class="row" style="align-items:center">
+ <div class="b" style="width:150px">Template held-out<small>30 email lừa đảo + 30 email hợp lệ, chưa dùng để huấn luyện</small></div>
+ <div class="a">➜</div>
+ <div class="grp" style="width:330px"><div class="lbl">6 kịch bản biến đổi</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+   <div class="b">Gốc (văn bản)</div><div class="b o">LLM viết lại</div>
+   <div class="b o">Chuyển vào ảnh</div><div class="b o">Ảnh + mã QR</div>
+   <div class="b o">Tệp Word</div><div class="b o">Tệp HTML</div>
+  </div></div>
+ <div class="a">➜</div>
+ <div class="grp col" style="width:230px"><div class="lbl">4 bộ phát hiện</div>
+  <div class="b">Chỉ văn bản – TF-IDF</div><div class="b">Chỉ văn bản – KD-BiLSTM</div>
+  <div class="b g">Đa kênh – TF-IDF</div><div class="b g">Đa kênh – KD-BiLSTM</div></div>
+ <div class="a">➜</div>
+ <div class="b f" style="width:150px">Tỉ lệ phát hiện &amp; báo nhầm</div>
+</div></div>
+</body></html>

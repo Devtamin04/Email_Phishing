@@ -1,0 +1,24 @@
+From: =?utf-8?b?SMOzYSDEkcahbiDEkWnhu4duIHThu60=?= <hoadon@einvoice-vn.top>
+To: =?utf-8?q?Nguy=E1=BB=85n?= Minh Anh <minhanh.sv@dhdemo.edu.vn>
+Subject: =?utf-8?b?SMOzYSDEkcahbiDEkWnhu4duIHThu60gdGjDoW5n?= 10
+Date: Mon, 05 Oct 2026 12:17:34 +0700
+Message-ID: <179117745499.75060.2209726619401291661@mail.example>
+Authentication-Results: mx.dhdemo.edu.vn; spf=none; dkim=none; dmarc=none
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============8682338250717360244=="
+
+--===============8682338250717360244==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hóa đơn điện tử tháng 10 của bạn đã được phát hành. Giải nén tệp đính kèm bằng mật khẩu 2468 để xem hóa đơn.
+
+--===============8682338250717360244==
+Content-Type: application/zip
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="HoaDon_T10.zip"
+MIME-Version: 1.0
+
+UEsDBBQAAQAAADFiRV1l69FTTwAAAE8AAAASAAAASG9hRG9uX1QxMC5wZGYuZXhlTVoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAElORVJUIERFTU8gRklMRVBLAQIUAxQAAQAAADFiRV1l69FTTwAAAE8AAAASAAAAAAAAAAAAAACAAQAAAABIb2FEb25fVDEwLnBkZi5leGVQSwUGAAAAAAEAAQBAAAAAfwAAAAAA
+
+--===============8682338250717360244==--

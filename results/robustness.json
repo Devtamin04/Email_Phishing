@@ -1,0 +1,342 @@
+{
+ "generated": "2026-10-05 19:21",
+ "n_phish": 30,
+ "n_legit": 30,
+ "detectors": [
+  {
+   "key": "text_linear",
+   "label": "Chỉ văn bản – TF-IDF",
+   "short": "VB/TF-IDF"
+  },
+  {
+   "key": "text_kd",
+   "label": "Chỉ văn bản – KD-BiLSTM",
+   "short": "VB/KD-BiLSTM"
+  },
+  {
+   "key": "full_linear",
+   "label": "PhishLens đa kênh – TF-IDF",
+   "short": "ĐK/TF-IDF"
+  },
+  {
+   "key": "full_kd",
+   "label": "PhishLens đa kênh – KD-BiLSTM",
+   "short": "ĐK/KD-BiLSTM"
+  }
+ ],
+ "transforms": [
+  {
+   "key": "orig",
+   "label": "Gốc (văn bản)",
+   "desc": "email lừa đảo nguyên bản trong thân thư"
+  },
+  {
+   "key": "llm",
+   "label": "LLM viết lại",
+   "desc": "paraphrase + masking + personalization"
+  },
+  {
+   "key": "image",
+   "label": "Chuyển vào ảnh",
+   "desc": "nội dung (đã viết lại) được đặt trong ảnh, thân thư gần như trống"
+  },
+  {
+   "key": "qr",
+   "label": "Ảnh + mã QR",
+   "desc": "như trên, liên kết được giấu trong mã QR"
+  },
+  {
+   "key": "docx",
+   "label": "Tệp Word đính kèm",
+   "desc": "nội dung nằm trong tệp .docx (không macro)"
+  },
+  {
+   "key": "html",
+   "label": "Tệp HTML đính kèm",
+   "desc": "nội dung nằm trong tệp .html (không có form)"
+  }
+ ],
+ "tpr": {
+  "orig": {
+   "text_linear": {
+    "rate": 0.8,
+    "hit": 24,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.6666666666666666,
+    "hit": 20,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.8,
+    "hit": 24,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.8,
+    "hit": 24,
+    "n": 30
+   }
+  },
+  "llm": {
+   "text_linear": {
+    "rate": 0.6666666666666666,
+    "hit": 20,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.6,
+    "hit": 18,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.8,
+    "hit": 24,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.8,
+    "hit": 24,
+    "n": 30
+   }
+  },
+  "image": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.9,
+    "hit": 27,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.9666666666666667,
+    "hit": 29,
+    "n": 30
+   }
+  },
+  "qr": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 1.0,
+    "hit": 30,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 1.0,
+    "hit": 30,
+    "n": 30
+   }
+  },
+  "docx": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.7,
+    "hit": 21,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.5666666666666667,
+    "hit": 17,
+    "n": 30
+   }
+  },
+  "html": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 1.0,
+    "hit": 30,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 1.0,
+    "hit": 30,
+    "n": 30
+   }
+  }
+ },
+ "fpr": {
+  "orig": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.23333333333333334,
+    "hit": 7,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.1,
+    "hit": 3,
+    "n": 30
+   }
+  },
+  "llm": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.23333333333333334,
+    "hit": 7,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.1,
+    "hit": 3,
+    "n": 30
+   }
+  },
+  "image": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.16666666666666666,
+    "hit": 5,
+    "n": 30
+   }
+  },
+  "qr": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.06666666666666667,
+    "hit": 2,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.2,
+    "hit": 6,
+    "n": 30
+   }
+  },
+  "docx": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.1,
+    "hit": 3,
+    "n": 30
+   }
+  },
+  "html": {
+   "text_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "text_kd": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_linear": {
+    "rate": 0.0,
+    "hit": 0,
+    "n": 30
+   },
+   "full_kd": {
+    "rate": 0.16666666666666666,
+    "hit": 5,
+    "n": 30
+   }
+  }
+ },
+ "findings": [
+  "Chuyển vào ảnh: mô hình chỉ đọc thân thư phát hiện tối đa 0%, hệ thống đa kênh 97%.",
+  "Ảnh + mã QR: mô hình chỉ đọc thân thư phát hiện tối đa 0%, hệ thống đa kênh 100%.",
+  "Tệp Word đính kèm: mô hình chỉ đọc thân thư phát hiện tối đa 0%, hệ thống đa kênh 70%.",
+  "Tệp HTML đính kèm: mô hình chỉ đọc thân thư phát hiện tối đa 0%, hệ thống đa kênh 100%.",
+  "LLM viết lại: chỉ văn bản 80% → 67% (Chỉ văn bản – TF-IDF).",
+  "Loại khó nhất: lừa chuyển tiền / mạo danh (thẻ cào, BEC) - hệ thống đa kênh vẫn bỏ sót 50% khi header người gửi bị giữ trung tính (loại này không có link/tệp; trong thực tế tín hiệu mạnh nhất là người gửi mạo danh).",
+  "Trên email hợp lệ chưa từng thấy, KD-BiLSTM (tokenizer tiếng Anh, mất dấu tiếng Việt) báo nhầm 14% so với 1% của TF-IDF khi đặt trong hệ đa kênh - cần teacher đa ngôn ngữ (PhoBERT, XLM-R) hoặc hiệu chỉnh ngưỡng.",
+  "Báo nhầm cao nhất của hệ thống đa kênh trên email hợp lệ: 20%."
+ ],
+ "notes": [
+  "Dữ liệu tổng hợp (mẫu tiếng Việt, template giữ lại không dùng để huấn luyện);",
+  "'LLM viết lại' là bộ biến đổi theo luật mô phỏng 3 hành vi trong bài báo;",
+  "thay bằng LLM thật để có kết luận chắc chắn hơn."
+ ]
+}

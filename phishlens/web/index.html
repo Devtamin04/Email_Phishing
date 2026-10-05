@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhishLens Edu – Trợ lý nhận diện email lừa đảo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">◎</span>
+    <div>
+      <div class="brand-name">PhishLens Edu</div>
+      <div class="brand-sub" id="org-name">Trợ lý nhận diện email lừa đảo cho trường học</div>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <a href="#analyze" class="tab" data-tab="analyze">Phân tích email</a>
+    <a href="#quiz" class="tab" data-tab="quiz">Luyện tập nhận diện</a>
+    <a href="#robust" class="tab" data-tab="robust">Đánh giá độ bền</a>
+    <a href="#about" class="tab" data-tab="about">Giới thiệu</a>
+  </nav>
+  <div class="settings">
+    <label title="Mô hình phân tích nội dung văn bản">Mô hình
+      <select id="model-select"></select>
+    </label>
+    <label class="check"><input type="checkbox" id="ocr-toggle" checked> OCR ảnh</label>
+  </div>
+</header>
+
+<main>
+  <!-- ============ ANALYZE ============ -->
+  <section id="tab-analyze" class="page">
+    <aside class="sidebar">
+      <div class="panel">
+        <h3>Hộp thư mẫu</h3>
+        <p class="hint">12 email minh họa: thật, lừa đảo cổ điển, viết lại bằng AI, ảnh + QR, tệp đính kèm độc hại (đều là tệp giả vô hại).</p>
+        <div id="sample-list" class="sample-list"></div>
+      </div>
+      <div class="panel">
+        <h3>Phân tích email của bạn</h3>
+        <label class="drop" id="drop">
+          <input type="file" id="eml-input" accept=".eml,message/rfc822" hidden>
+          <span><b>Chọn tệp .eml</b> hoặc kéo thả vào đây</span>
+          <small>Gmail: ⋮ → Tải thư xuống · Outlook: Lưu thư dưới dạng .eml</small>
+        </label>
+        <details class="manual">
+          <summary>Hoặc dán nội dung thủ công</summary>
+          <form id="manual-form">
+            <input name="sender" placeholder="Người gửi, ví dụ: Phòng Đào tạo &lt;daotao@...&gt;">
+            <input name="subject" placeholder="Tiêu đề">
+            <textarea name="body" rows="6" placeholder="Nội dung email (văn bản hoặc HTML)"></textarea>
+            <input type="file" name="files" multiple>
+            <button type="submit" class="btn primary">Phân tích</button>
+          </form>
+        </details>
+      </div>
+    </aside>
+    <div class="content" id="result">
+      <div class="empty">
+        <div class="empty-icon" aria-hidden="true">✉</div>
+        <h2>Chọn một email để phân tích</h2>
+        <p>Hệ thống không thay thế bộ lọc của Gmail/Microsoft. Nó là <b>“ý kiến thứ hai có giải thích”</b> cho những email đã lọt vào hộp thư:
+          kiểm tra người gửi, liên kết, nội dung, <b>hình ảnh (OCR, mã QR)</b> và <b>tệp đính kèm</b>, rồi cho biết mức độ rủi ro và <b>vì sao</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="tab-quiz" class="page" hidden>
+    <div class="quiz-wrap">
+      <div class="quiz-head">
+        <div>
+          <h2>Luyện tập nhận diện</h2>
+          <p class="hint">Đọc email và tự quyết định trước khi xem phân tích. Email được trộn giữa mẫu thật và email sinh tự động (kể cả bản viết lại kiểu AI).</p>
+        </div>
+        <div class="scoreboard">
+          <div class="stat"><div class="stat-label">Đúng</div><div class="stat-value" id="q-correct">0</div></div>
+          <div class="stat"><div class="stat-label">Đã làm</div><div class="stat-value" id="q-total">0</div></div>
+          <div class="stat"><div class="stat-label">Chuỗi đúng</div><div class="stat-value" id="q-streak">0</div></div>
+        </div>
+      </div>
+      <div id="quiz-card" class="panel"></div>
+      <div id="quiz-feedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ ROBUSTNESS ============ -->
+  <section id="tab-robust" class="page" hidden>
+    <div class="doc">
+      <h2>Đánh giá độ bền trước phishing do LLM tạo và biến đổi</h2>
+      <p>Câu hỏi nghiên cứu: <b>khi kẻ tấn công dùng AI viết lại email, hoặc chuyển thông điệp vào ảnh, mã QR hay tệp đính kèm, bộ phát hiện còn bắt được bao nhiêu?</b>
+        Mỗi email lừa đảo gốc (từ các mẫu <i>chưa từng dùng để huấn luyện</i>) được biến đổi theo từng kịch bản; email hợp lệ được biến đổi tương tự để đo báo động nhầm.</p>
+      <div id="robust-body"><p class="hint">Đang tải…</p></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="tab-about" class="page" hidden>
+    <div class="doc">
+      <h2>Ý tưởng</h2>
+      <p>Các trường đã có bộ lọc của Gmail/Microsoft 365. Những email còn lọt qua thường là email <b>được viết khéo (kể cả bằng AI)</b>,
+        email <b>giấu thông điệp trong ảnh hoặc mã QR</b>, và email <b>dùng tệp đính kèm</b> (HTML đăng nhập giả, macro, tệp nén có mật khẩu).
+        PhishLens Edu không thay thế bộ lọc mà bổ sung một lớp <b>phân tích có giải thích</b> và <b>giáo dục người dùng</b>.</p>
+      <div class="pipeline">
+        <div class="step"><b>1. Tách email</b><span>tiêu đề, người gửi, nội dung, liên kết, ảnh, tệp</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>2. Phân tích đa kênh</b><span>người gửi · liên kết · nội dung (KD-BiLSTM) · ảnh (OCR, QR) · tệp (phân tích tĩnh)</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>3. Kết hợp bằng chứng</b><span>điểm rủi ro 0–100, loại tấn công, kỹ thuật né tránh</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>4. Giải thích & hướng dẫn</b><span>lý do, bài học, việc cần làm</span></div>
+      </div>
+      <h3>Kế thừa từ bài báo</h3>
+      <p>Mô hình nội dung là <b>BiLSTM + multi-head attention được chưng cất từ MobileBERT</b> (Eskandarian et al., JISA 2026) – nhỏ, chạy được trên CPU.
+        Trọng số attention được dùng để chỉ ra các từ mô hình “chú ý”. Dữ liệu huấn luyện gồm email gốc và email được biến đổi kiểu LLM (paraphrase, masking, personalization).</p>
+      <h3>Riêng tư</h3>
+      <p>Toàn bộ phân tích chạy trên máy cục bộ; email không được gửi tới dịch vụ bên ngoài. Tệp đính kèm chỉ được <b>phân tích tĩnh</b>, không bao giờ được mở hay thực thi.</p>
+      <h3>Giới hạn hiện tại</h3>
+      <ul>
+        <li>Dữ liệu huấn luyện là dữ liệu tổng hợp; cần đánh giá thêm trên email thật của trường.</li>
+        <li>Không kiểm tra danh tiếng URL/IP trực tuyến và không chạy sandbox cho tệp.</li>
+        <li>OCR trên CPU mất vài giây cho mỗi ảnh.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

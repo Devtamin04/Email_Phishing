@@ -1,0 +1,23 @@
+From: IT Service Desk <it-desk@dhdemo-edu.com>
+To: =?utf-8?q?Nguy=E1=BB=85n?= Minh Anh <minhanh.sv@dhdemo.edu.vn>
+Subject: Action required: your Microsoft 365 password expires today
+Date: Mon, 05 Oct 2026 12:17:35 +0700
+Message-ID: <179117745510.75060.10274777592850477571@mail.example>
+Authentication-Results: mx.dhdemo.edu.vn; spf=fail; dkim=none; dmarc=fail
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="===============0820537311657375676=="
+
+--===============0820537311657375676==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Minh Anh,
+
+--===============0820537311657375676==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+<p>Hi Minh Anh,</p><p>Hope your semester is going well. As part of the annual security review, your Microsoft 365 password expires today. To keep your current password and avoid interruption to your coursework, please confirm your sign-in details below.</p><p><a href='https://login.microsoftonline.com.secure-auth.xyz/common'>https://login.microsoftonline.com</a></p><p>Thank you,<br>IT Service Desk</p>
+
+--===============0820537311657375676==--

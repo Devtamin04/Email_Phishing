@@ -1,0 +1,23 @@
+From: =?utf-8?q?Ph=C3=B2ng?= CNTT <it-support@dhdemo-edu.com>
+To: =?utf-8?q?Nguy=E1=BB=85n?= Minh Anh <minhanh.sv@dhdemo.edu.vn>
+Subject: =?utf-8?b?W0tI4bqoTl0gVMOgaSBraG/huqNuIGVtYWlsIHNpbmggdmnDqm4gc+G6vSBi4buLIGtow7Nh?=
+Date: Mon, 05 Oct 2026 12:17:34 +0700
+Message-ID: <179117745480.75060.10234047366113776998@mail.example>
+Authentication-Results: mx.dhdemo.edu.vn; spf=fail smtp.mailfrom=dhdemo-edu.com; dkim=none; dmarc=fail header.from=dhdemo-edu.com
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="===============6524892894040878259=="
+
+--===============6524892894040878259==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Kính gửi sinh viên, tài khoản sẽ bị khóa trong 24 giờ.
+
+--===============6524892894040878259==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+<p>Kính gửi sinh viên,</p><p>Hệ thống email sinh viên đang được nâng cấp. Tài khoản của bạn sẽ <b>bị khóa trong vòng 24 giờ</b> nếu không xác minh.</p><p>Vui lòng nhấn vào đường link sau để xác minh tài khoản ngay: <a href='http://dhdemo.edu.vn.account-verify.top/login'>https://dhdemo.edu.vn/xac-thuc</a></p><p>Phòng CNTT</p>
+
+--===============6524892894040878259==--
