@@ -14,9 +14,11 @@ from email.utils import formatdate, make_msgid
 
 FONT_PATHS = ["/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
               "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-              "/Library/Fonts/Arial Unicode.ttf", "C:/Windows/Fonts/arial.ttf"]
+              "/Library/Fonts/Arial Unicode.ttf", "C:/Windows/Fonts/arial.ttf",
+              "C:/Windows/Fonts/segoeui.ttf"]
 BOLD_PATHS = ["/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
-              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", "C:/Windows/Fonts/arialbd.ttf"]
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", "C:/Windows/Fonts/arialbd.ttf",
+              "C:/Windows/Fonts/segoeuib.ttf"]
 
 
 def _font(size, bold=False):

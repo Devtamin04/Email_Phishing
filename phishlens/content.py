@@ -125,7 +125,7 @@ class KDTextModel:
         from transformers import AutoTokenizer
 
         from phishkd.models import KDStudent
-        cfg = json.load(open(os.path.join(path, "config.json")))
+        cfg = json.load(open(os.path.join(path, "config.json"), encoding="utf-8"))
         self.tok = AutoTokenizer.from_pretrained(path)
         self.model = KDStudent(cfg["vocab_size"], cfg["emb_dim"], pad_id=cfg["pad_id"])
         self.model.load_state_dict(torch.load(os.path.join(path, "student.pt"), map_location="cpu"))

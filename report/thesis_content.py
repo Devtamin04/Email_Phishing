@@ -668,3 +668,99 @@ REFERENCES = [
     "R. Geirhos et al., “Shortcut learning in deep neural networks,” Nature Machine Intelligence, vol. 2, "
     "pp. 665–673, 2020.",
 ]
+
+
+APPENDIX = [
+    ("appendix", "PHỤ LỤC: HƯỚNG DẪN CÀI ĐẶT VÀ CHẠY DỰ ÁN TRÊN WINDOWS"),
+    ("h2", "Yêu cầu hệ thống"),
+    ("p", "Dự án được phát triển và kiểm thử trên máy không có GPU, vì vậy có thể chạy trên một máy tính "
+          "Windows thông thường. Mọi thư viện được cài vào một môi trường ảo riêng (thư mục .venv) bên trong "
+          "dự án, không ảnh hưởng tới Python hay các phần mềm khác trên máy. Bảng PL.1 liệt kê yêu cầu tối "
+          "thiểu."),
+    ("tab", "Yêu cầu hệ thống để chạy dự án trên Windows",
+     [("Thành phần", "Yêu cầu"),
+      ("Hệ điều hành", "Windows 10 hoặc Windows 11, 64-bit"),
+      ("Python", "3.10 – 3.12, tải tại python.org; khi cài chọn “Add python.exe to PATH”"),
+      ("Bộ nhớ", "RAM tối thiểu 8 GB (khuyến nghị 16 GB khi huấn luyện KD-BiLSTM)"),
+      ("Ổ đĩa", "Khoảng 6 GB trống (thư viện, MobileBERT, mô hình OCR)"),
+      ("Mạng", "Cần Internet ở lần cài đầu để tải thư viện và mô hình"),
+      ("Trình duyệt", "Chrome, Edge hoặc Firefox bản mới")], [4, 12], 12),
+    ("h2", "Cấu trúc thư mục dự án"),
+    ("p", "Mã nguồn gồm hai phần: gói phishkd dùng cho việc tái hiện bài báo, và gói phishlens là hệ thống "
+          "PhishLens Edu. Các script chạy nằm trong thư mục scripts, trong đó thư mục scripts\\windows chứa "
+          "các tệp .bat dành riêng cho Windows. Bảng PL.2 mô tả các thư mục chính."),
+    ("tab", "Các thư mục chính của dự án",
+     [("Thư mục / tệp", "Nội dung"),
+      ("phishkd\\", "Tái hiện bài báo: dữ liệu, LSTM/BiLSTM/attention, MobileBERT, KD-BiLSTM"),
+      ("phishlens\\", "PhishLens Edu: bộ tách email, các bộ phân tích, kết hợp bằng chứng, web app"),
+      ("phishlens\\config.py", "Cấu hình theo trường: tên trường, tên miền chính thức, bật/tắt OCR"),
+      ("scripts\\", "Script tạo dữ liệu, huấn luyện, thí nghiệm"),
+      ("scripts\\windows\\", "setup.bat, prepare.bat, run_app.bat, run_paper.bat, run_robustness.bat"),
+      ("samples\\, models\\, results\\", "Email mẫu, mô hình đã huấn luyện, kết quả thí nghiệm"),
+      ("phishing_kd_bilstm.ipynb", "Notebook chạy phần tái hiện trên Google Colab"),
+      ("requirements.txt", "Danh sách thư viện cần cài")], [5.5, 10.5], 12),
+    ("h2", "Cài đặt nhanh bằng các tệp .bat"),
+    ("p", "Cách đơn giản nhất là dùng các tệp .bat đã được chuẩn bị sẵn. Sau khi giải nén dự án, mở thư mục "
+          "scripts\\windows trong File Explorer và nhấp đúp lần lượt các tệp theo thứ tự ở Bảng PL.3. Mỗi tệp "
+          "tự chuyển về thư mục gốc của dự án, tự đặt biến môi trường PYTHONUTF8=1 để hiển thị tiếng Việt "
+          "đúng trên cửa sổ dòng lệnh, và dừng lại kèm thông báo nếu có lỗi."),
+    ("tab", "Thứ tự chạy các tệp .bat",
+     [("Bước", "Tệp", "Chức năng", "Thời gian"),
+      ("1", "setup.bat", "Tạo .venv, cài PyTorch bản CPU và thư viện trong requirements.txt", "5–15 phút"),
+      ("2", "prepare.bat", "Tạo 12 email mẫu, huấn luyện mô hình TF-IDF", "dưới 1 phút"),
+      ("2'", "prepare.bat kd", "Như bước 2, thêm KD-BiLSTM chưng cất từ MobileBERT", "15–30 phút"),
+      ("3", "run_app.bat", "Chạy giao diện tại http://127.0.0.1:8765 và tự mở trình duyệt", "–"),
+      ("Tùy chọn", "run_paper.bat", "Tái hiện bài báo: dữ liệu và 4 mô hình cơ sở", "2–5 phút"),
+      ("Tùy chọn", "run_robustness.bat", "Thí nghiệm độ bền 6 kịch bản × 4 bộ phát hiện", "10–20 phút")],
+     [2.2, 3.6, 7.6, 2.6], 11),
+    ("p", "Các tệp có tham số (prepare.bat kd, run_paper.bat full) cần được chạy từ cửa sổ Command Prompt. "
+          "Mở Command Prompt tại thư mục dự án bằng cách gõ cmd vào thanh địa chỉ của File Explorer rồi nhấn "
+          "Enter, sau đó gõ lệnh như sau:"),
+    ("code", "scripts\\windows\\prepare.bat kd\nscripts\\windows\\run_paper.bat full"),
+    ("h2", "Cài đặt thủ công bằng dòng lệnh"),
+    ("p", "Nếu muốn hiểu rõ từng bước hoặc gặp lỗi với tệp .bat, có thể cài đặt thủ công trong Command "
+          "Prompt. Trước hết chuyển vào thư mục dự án và tạo môi trường ảo:"),
+    ("code", "cd /d D:\\duong-dan\\PhongDieu\npy -3 -m venv .venv\n"
+             ".venv\\Scripts\\python -m pip install --upgrade pip"),
+    ("p", "Tiếp theo cài PyTorch bản CPU từ kho chính thức, sau đó cài các thư viện còn lại. Cài PyTorch "
+          "trước giúp tránh việc pip tự chọn một phiên bản không tương thích với torchvision:"),
+    ("code", ".venv\\Scripts\\python -m pip install torch torchvision --index-url "
+             "https://download.pytorch.org/whl/cpu\n.venv\\Scripts\\python -m pip install -r requirements.txt"),
+    ("p", "Nếu máy có GPU NVIDIA, có thể thay địa chỉ “whl/cpu” bằng bản CUDA phù hợp (ví dụ “whl/cu121”) để "
+          "tăng tốc huấn luyện MobileBERT. Cuối cùng, đặt mã hóa UTF-8 cho cửa sổ lệnh hiện tại:"),
+    ("code", "set PYTHONUTF8=1"),
+    ("h2", "Chạy từng phần của dự án"),
+    ("p", "**Chạy hệ thống PhishLens Edu.** Tạo email mẫu, huấn luyện mô hình văn bản (thêm tham số --kd để "
+          "huấn luyện KD-BiLSTM của bài báo), rồi khởi động máy chủ web. Sau đó mở trình duyệt tại địa chỉ "
+          "http://127.0.0.1:8765. Có thể mở thẳng một email mẫu, ví dụ http://127.0.0.1:8765/?sample=s04_qr_m365. "
+          "Máy chủ chỉ lắng nghe trên địa chỉ nội bộ 127.0.0.1, nên các máy khác trong mạng không truy cập được."),
+    ("code", ".venv\\Scripts\\python scripts\\build_samples.py\n"
+             ".venv\\Scripts\\python scripts\\train_text_models.py --kd\n"
+             ".venv\\Scripts\\python -m uvicorn phishlens.app:app --host 127.0.0.1 --port 8765"),
+    ("p", "Lần đầu phân tích một email có hình ảnh, EasyOCR sẽ tải mô hình nhận dạng chữ (khoảng 100 MB) nên "
+          "mất thêm thời gian; các lần sau chỉ mất vài giây cho mỗi ảnh. Có thể tắt OCR bằng ô “OCR ảnh” trên "
+          "giao diện hoặc đặt OCR_ENABLED = False trong phishlens\\config.py."),
+    ("p", "**Tái hiện bài báo.** Chuẩn bị corpus rồi chạy năm kịch bản. Tham số --max-folds 1 giúp chạy nhanh; "
+          "bỏ tham số này để chạy đủ 5 fold. Thêm teacher,kd vào --models để chạy MobileBERT và KD-BiLSTM; trên "
+          "CPU nên giảm độ dài chuỗi bằng --bert-max-len 128. Kết quả được lưu ở results\\results_summary.csv."),
+    ("code", ".venv\\Scripts\\python scripts\\prepare_data.py\n"
+             ".venv\\Scripts\\python scripts\\run_experiments.py --models lstm,bilstm,bilstm_sh,bilstm_mh --max-folds 1\n"
+             ".venv\\Scripts\\python scripts\\run_experiments.py --models teacher,kd --bert-max-len 128 --max-folds 1"),
+    ("p", "**Thí nghiệm độ bền.** Cần có mô hình KD-BiLSTM (đã huấn luyện ở trên). Kết quả được lưu ở "
+          "results\\robustness.json và hiển thị ở tab “Đánh giá độ bền” của giao diện."),
+    ("code", ".venv\\Scripts\\python scripts\\robustness_eval.py --n 30"),
+    ("p", "**Chạy trên Google Colab.** Nếu máy yếu, có thể tải tệp phishing_kd_bilstm.ipynb lên Google Colab, "
+          "chọn Runtime → Change runtime type → GPU, rồi chọn Runtime → Run all để chạy toàn bộ phần tái hiện "
+          "bài báo mà không cần cài đặt gì trên máy."),
+    ("h2", "Các lỗi thường gặp và cách khắc phục"),
+    ("tab", "Các lỗi thường gặp khi chạy trên Windows",
+     [("Lỗi", "Cách khắc phục"),
+      ("'python' is not recognized…", "Cài lại Python và chọn “Add python.exe to PATH”, hoặc dùng lệnh py -3"),
+      ("UnicodeEncodeError khi in tiếng Việt", "Chạy set PYTHONUTF8=1 trước (các tệp .bat đã tự đặt)"),
+      ("operator torchvision::nms does not exist", "torch và torchvision lệch phiên bản: cài lại lệnh "
+       "PyTorch ở mục PL.4 kèm --force-reinstall"),
+      ("Cổng 8765 đã được sử dụng", "Đổi --port 8765 thành cổng khác, ví dụ 8800"),
+      ("Phân tích ảnh lần đầu rất chậm", "EasyOCR đang tải mô hình; đợi tải xong, các lần sau sẽ nhanh"),
+      ("Dự án chép từ máy khác không chạy", "Thư mục .venv không chép được giữa các máy: xóa .venv rồi "
+       "chạy lại setup.bat")], [6, 10], 11),
+]

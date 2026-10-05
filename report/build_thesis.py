@@ -13,9 +13,9 @@ from docx.shared import Cm, Pt, RGBColor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from thesis_content import BLOCKS, REFERENCES  # noqa: E402
+from thesis_content import APPENDIX, BLOCKS, REFERENCES  # noqa: E402
 
-TEMPLATE = os.path.join(HERE, "BaoCao_VNSearch_DETai2.docx")
+TEMPLATE = os.path.join(HERE, "template", "mau_bao_cao.docx")  # copy of BaoCao_VNSearch_DETai2.docx
 OUT = os.path.join(HERE, "BaoCao_PhishLens_DeTai.docx")
 IMG = os.path.join(HERE, "img")
 FONT, SZ = "Times New Roman", 26          # half-points (13 pt)
@@ -175,12 +175,17 @@ def rich(p, text, size=13):
 
 
 chap, sec, eq_n, tab_n, fig_n = 0, 0, 0, 0, 0
+LABEL = [None]  # None -> chapter number; "PL" for the appendix
 
 
-def h1(title, numbered=True):
+def h1(title, numbered=True, label=None):
     global chap, sec, eq_n, tab_n, fig_n
     p = doc.add_paragraph(style="Heading 1")
-    if numbered:
+    LABEL[0] = label
+    if label:
+        sec = tab_n = fig_n = eq_n = 0
+        text = title.upper()
+    elif numbered:
         chap += 1
         sec = eq_n = tab_n = fig_n = 0
         text = f"CHƯƠNG {chap}: {title.upper()}"
@@ -195,7 +200,7 @@ def h2(title):
     sec += 1
     p = doc.add_paragraph(style="Heading 2")
     _ppr(p, "left", first_line=567, before=6, keep_next=True)
-    _run(p, f"{chap}.{sec}. {title}", bold=True)
+    _run(p, f"{LABEL[0] or chap}.{sec}. {title}", bold=True)
 
 
 def para(text):
@@ -220,10 +225,28 @@ def equation(text):
     _run(p, f"\t({chap}.{eq_n})")
 
 
+def code(text):
+    lines = text.strip("\n").split("\n")
+    for k, line in enumerate(lines):
+        p = doc.add_paragraph()
+        _ppr(p, "left", first_line=0, before=4 if k == 0 else 0, after=4 if k == len(lines) - 1 else 0,
+             line=240, keep_next=k < len(lines) - 1)
+        p.paragraph_format.left_indent = Cm(0.6)
+        r = p.add_run(line or " ")
+        r.font.name, r.font.size = "Consolas", Pt(10.5)
+        r._element.rPr.rFonts.set(qn("w:eastAsia"), "Consolas")
+        pPr = p._p.get_or_add_pPr()
+        shd = OxmlElement("w:shd")
+        shd.set(qn("w:val"), "clear")
+        shd.set(qn("w:color"), "auto")
+        shd.set(qn("w:fill"), "F2F2F2")
+        pPr.append(shd)
+
+
 def caption(kind, n, text):
     p = doc.add_paragraph()
     _ppr(p, "center", first_line=0, before=3, after=6)
-    _run(p, f"{kind} {chap}.{n}. ", bold=True)
+    _run(p, f"{kind} {LABEL[0] or chap}.{n}. ", bold=True)
     _run(p, text, italic=True)
 
 
@@ -269,10 +292,13 @@ def figure(name, cap, width):
 
 
 # ------------------------------------------------------------------ body
-for b in BLOCKS:
+def render(blocks):
+  for b in blocks:
     kind = b[0]
     if kind == "h1":
         h1(b[1])
+    elif kind == "appendix":
+        h1(b[1], label="PL")
     elif kind == "h2":
         h2(b[1])
     elif kind == "p":
@@ -283,6 +309,11 @@ for b in BLOCKS:
         table(b[1], b[2], b[3], b[4])
     elif kind == "fig":
         figure(b[1], b[2], b[3])
+    elif kind == "code":
+        code(b[1])
+
+
+render(BLOCKS)
 
 h1("TÀI LIỆU THAM KHẢO", numbered=False)
 for i, ref in enumerate(REFERENCES, 1):
@@ -291,6 +322,8 @@ for i, ref in enumerate(REFERENCES, 1):
     p.paragraph_format.left_indent = Cm(0.9)
     p.paragraph_format.first_line_indent = Cm(-0.9)
     _run(p, f"[{i}]\t{ref}")
+
+render(APPENDIX)
 
 # ------------------------------------------------------------------ page numbers (content section)
 sec_last = doc.sections[-1]

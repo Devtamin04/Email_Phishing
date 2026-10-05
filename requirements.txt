@@ -1,7 +1,20 @@
-# PyTorch CPU: pip install torch --index-url https://download.pytorch.org/whl/cpu
-torch
+# PyTorch cài riêng trước (bản CPU):
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# --- Phần 1: tái hiện bài báo (phishkd) ---
 transformers
 gensim
 scikit-learn
 pandas
 tqdm
+# --- Phần 2: PhishLens Edu ---
+fastapi
+uvicorn[standard]
+python-multipart
+pillow
+opencv-python-headless
+qrcode
+pypdf
+easyocr
+# --- Báo cáo / slide (tùy chọn) ---
+python-docx
+python-pptx

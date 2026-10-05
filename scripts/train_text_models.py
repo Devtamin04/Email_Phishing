@@ -54,5 +54,5 @@ if args.kd:
     tok.save_pretrained(d)
     json.dump({"vocab_size": student.emb.num_embeddings, "emb_dim": student.emb.embedding_dim,
                "pad_id": student.emb.padding_idx or 0, "max_len": args.max_len},
-              open(os.path.join(d, "config.json"), "w"))
+              open(os.path.join(d, "config.json"), "w", encoding="utf-8"))
     print("KD-BiLSTM saved to", d)
